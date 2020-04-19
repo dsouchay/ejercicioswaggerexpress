@@ -1,0 +1,61 @@
+swagger: '2.0'
+info:
+  description: >-
+    Print the numbers from 1 to 100. For multiples of 3, print the word 'Pé'
+    instead of the number. For multiples of 5, print the word 'Do' instead of
+    the number. For multiples of both 3 and 5, print 'PéDo'.
+  version: 1.0.0
+  title: Pedo Multiples
+  termsOfService: ''
+  contact:
+    email: dsouchay@gmail.com
+host: 'localhost:3000'
+basePath: /multiples
+schemes:
+  - http
+paths:
+  /print:
+    get:
+      tags:
+        - multiples
+      summary: Find multiples of 3 and 5
+      description: Print a numbers intervals and replaces de Multiples of 3 and 5
+      operationId: getIntervalReplace
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - name: iniValue
+          in: query
+          description: initial values
+          required: true
+          type: integer
+          format: int64
+        - name: endValue
+          in: query
+          description: End values
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: successful operation
+          schema:
+            type: array
+            items:
+              type: string
+        '400':
+          description: Check your number intervals
+          schema:
+            $ref: '#/definitions/errorResponse'
+definitions:
+  errorResponse:
+    type: object
+    properties:
+      httpCode:
+        type: integer
+        format: int64
+      httpMessage:
+        type: string
+      moreInformation:
+        type: string
